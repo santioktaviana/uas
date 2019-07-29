@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "https://samafatmawati.000webhostapp.com/appcordova/www/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var nim = field.nim;
+                var nama = field.nama;
+                var progdi = field.progdi;
+				var sertif = field.sertif;
+                var email = field.email;
+                var nohp = field.nohp;
+                
+                $("#listview").append("<a class='item' href='form.html?nim=" + nim + "&nama=" + nama + "&progdi=" + progdi +"&sertif=" + sertif + "&email=" + email + "&nohp=" + nohp +  "'><span class='item-note'><h2><b>" + sertif + "</h2></b></span><h2><b>" + nama + " </b></h2><p>" + progdi + "</p><p>" + email + "</p><p>" + nohp + "</p></a>");
+    
+                
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">Data Sertifikasi</h1>
+    </div>
+    <br/>
+    <br/>
+    <ul class="list" id="listview">
+    </ul>
+</body>
+
+</html>

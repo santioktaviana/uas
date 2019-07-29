@@ -1,0 +1,106 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#insert").click(function() {
+            var nim= $("#nim").val();
+            var nama = $("#nama").val();
+			var progdi = $("#progdi").val();
+			var sertif = $("#sertif").val();
+            var email = $("#email").val();
+            var nohp = $("#nohp").val();
+            
+            
+            var dataString = "nim=" + nim + "&nama=" + nama +"&progdi=" + progdi +  "&sertif=" + sertif + "&email=" + email +"&nohp=" + nohp +  "&insert=";
+            if ($.trim(nim).length > 0 & $.trim(nama).length > 0  & $.trim(progdi).length > 0 & $.trim(sertif).length > 0  & $.trim(email).length > 0 & $.trim(nohp).length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "https://samafatmawati.000webhostapp.com/appcordova/www/insert.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function() {
+                        $("#insert").val('Connecting...');
+                    },
+                    success: function(data) {
+                        if (data == "success") {
+                            alert("inserted");
+                            $("#insert").val('submit');
+                        } else if (data == "error") {
+                            alert("error");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <h1 class="title">Pendaftaran Sertifikasi</h1>
+        <a class="button button-clear" href="readjson.html">Lihat Data</a>
+        <a class="button button-clear" href="json.php">Lihat JSON</a>
+    </div>
+    <br/>
+    <br/>
+   
+    <div class="list">
+  
+        <div class="item">
+            <label>NIM</label>
+            <input type="text" id="nim" value="" />
+        </div>
+        <div class="item">
+            <label>Nama</label>
+            <input type="text" id="nama" value="" />
+        </div>
+
+        <div class="item">
+        <label>Pilih Program Studi:
+        <select id="progdi">
+          <option value="Teknik Informatika">Teknik Informatika</option>
+          <option value="Sistem Informasi">Sistem Informasi</option>
+          <option value="Manajemen Informatika">Manajemen Informatika</option>
+        </select>
+      </label>
+      </div>
+      
+	  <div class="item">
+        <label>Pilih Sertifikasi:
+        <select id="sertif">
+          <option value="CISCO">Cisco</option>
+          <option value="FORESEC">Foresec</option>
+          <option value="ORACLE">Oracle</option>
+          <option value="MTA">MTA</option>
+          <option value="TOEFL">Toefl</option>
+        </select>
+      </label>
+      </div>
+	  
+        <div class="item">
+            <label>Email</label>
+            <input type="text" id="email" value="" />
+        </div>
+    
+	 <div class="item">
+            <label>No hp</label>
+            <input type="text" id="nohp" value="" />
+        </div>
+        
+        
+        
+        <div class="item">
+            <input type="button" id="insert" class="button button-block" value="Insert" />
+        </div>
+      
+    </div>
+     
+</body>
+
+</html>

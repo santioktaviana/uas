@@ -1,0 +1,136 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var nim= decodeURI(getUrlVars()["nim"]);
+        var nama = decodeURI(getUrlVars()["nama"]);
+        var progdi = decodeURI(getUrlVars()["progdi"]);
+        var sertif = decodeURI(getUrlVars()["sertif"]);
+        var email = decodeURI(getUrlVars()["email"]);
+		var nohp = decodeURI(getUrlVars()["nohp"]);
+        
+        $("#nim").val(nim);
+        $("#nama").val(nama);
+        $("#progdi").val(progdi);
+        $("#sertif").val(sertif);
+        $("#email").val(email);
+        $("#nohp").val(nohp);
+        $("#update").click(function() {
+            var nim = $("#nim").val();
+            var nama = $("#nama").val();
+            var progdi = $("#progdi").val();
+            var sertif = $("#sertif").val();
+			var email = $("#email").val();
+            var nohp = $("#nohp").val();
+            
+            var dataString = "nim=" + nim + "&nama=" + nama + "&progdi=" + progdi +"&sertif=" + sertif + "&email=" + email + "&nohp=" + nohp + "&update=";
+            $.ajax({
+                type: "POST",
+                url: "https://samafatmawati.000webhostapp.com/appcordova/www/update.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#update").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Updated");
+                        $("#update").val("Update");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+        $("#delete").click(function() {
+            var nim = $("#nim").val();
+            var dataString = "nim=" + nim + "&delete=";
+            $.ajax({
+                type: "GET",
+                url: "https://samafatmawati.000webhostapp.com/appcordova/www/delete.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#delete").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Deleted");
+                        $("#delete").val("Delete");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">Update Database</h1>
+        <a class="button button-clear" href="readjson.html">Lihat Data</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+       
+        <div class="item">
+            <label>NIM</label>
+            <input type="text" id="nim" value="" />
+        </div>
+        <div class="item">
+            <label>Nama</label>
+            <input type="text" id="nama" value="" />
+        </div>
+
+        <div class="item">
+        <label>Pilih Program Studi:
+        <select id="progdi">
+          <option value="Teknik Informatika">Teknik Informatika</option>
+          <option value="Sistem Informasi">Sistem Informasi</option>
+          <option value="Manajemen Informatika">Manajemen Informatika</option>
+        </select>
+      </label>
+      </div>
+        
+		<div class="item">
+        <label>Pilih Sertifikasi:
+        <select id="sertif">
+          <option value="CISCO">Cisco</option>
+          <option value="FORESEC">Foresec</option>
+          <option value="ORACLE">Oracle</option>
+          <option value="MTA">MTA</option>
+          <option value="TOEFL">Toefl</option>
+        </select>
+      </label>
+      </div>
+	  
+        <div class="item">
+            <label>Email</label>
+            <input type="text" id="email" value="" />
+        </div>
+        
+        <div class="item">
+            <label>No HP</label>
+            <input type="text" id="nohp" value="" />
+        </div>
+       
+        <div class="item">
+            <input type="button" id="update" class="button button-block" value="Update"  />
+            <input type="button" id="delete" class="button button-block" value="Delete" />
+        </div>
+    </div>
+</body>
+
+</html>
